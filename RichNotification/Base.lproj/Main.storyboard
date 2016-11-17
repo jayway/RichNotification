@@ -22,11 +22,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnF-1g-qyL">
-                                <rect key="frame" x="127" y="28" width="121" height="30"/>
+                                <rect key="frame" x="121" y="28" width="136" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Setup notification"/>
+                                <state key="normal" title="external notification"/>
                                 <connections>
-                                    <action selector="SetupNotificationClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="DF8-Cq-7Ek"/>
+                                    <action selector="nofityButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tpY-2H-8sS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqI-q5-hjm">
+                                <rect key="frame" x="62" y="66" width="251" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="external notification with attachment"/>
+                                <connections>
+                                    <action selector="notifyAttachmentButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wyQ-JS-hC3"/>
                                 </connections>
                             </button>
                         </subviews>
