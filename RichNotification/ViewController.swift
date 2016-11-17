@@ -34,6 +34,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func notifyAttachmentButtonTapped(_ sender: UIButton) {
+        scheduleAttachmentNotification(inSeconds: 5, completion: { success in
+            if success {
+                print("successfully scheduled notification")
+            } else {
+                print("error scheduled notification")
+            }
+        })
         
     }
     
@@ -58,5 +65,38 @@ class ViewController: UIViewController {
         })
     }
 
+    func scheduleAttachmentNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
+        
+        // Add attachment
+        let myImage = "andreas_lund"
+        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "jpg") else {
+            completion(false)
+            return
+        }
+        var attachment: UNNotificationAttachment
+        
+        attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
+        
+        let notif = UNMutableNotificationContent()
+        
+        notif.title = "New Notification"
+        notif.subtitle = "These are great!"
+        notif.body = "The new iOS 10 notification are great"
+        
+        notif.attachments = [attachment]
+        
+        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        })
+    }
+    
 }
 
