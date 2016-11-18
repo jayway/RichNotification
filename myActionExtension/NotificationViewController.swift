@@ -20,7 +20,16 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ notification: UNNotification) {
-        self.label?.text = notification.request.content.body
+        //self.label?.text = notification.request.content.body
     }
 
+    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        
+        if response.actionIdentifier == "fistBump" {
+            completion(.dismissAndForwardAction)
+        } else if response.actionIdentifier == "dismiss" {
+            completion(.dismiss)
+        }
+        
+    }
 }

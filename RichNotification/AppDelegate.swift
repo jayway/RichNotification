@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         
         configureUserNotification()
-        configureUserActionNotification()
         
         return true
     }
@@ -51,21 +50,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureUserNotification() {
         let category = UNNotificationCategory(identifier: "myNotificationCategory", actions: [], intentIdentifiers: [], options: [])
         
-        UNUserNotificationCenter.current().setNotificationCategories([category])
+        let favAction = UNNotificationAction(identifier: "fistBump", title: "👊 fistbump", options: [.foreground])
+        let dismissAction = UNNotificationAction(identifier: "dismiss", title: "Dismiss", options: [])
+        
+        let categoryAction = UNNotificationCategory(identifier: "myNotificationActionCategory", actions: [favAction, dismissAction], intentIdentifiers: [], options: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([category, categoryAction])
         
     }
 
-    private func configureUserActionNotification() {
-        let category = UNNotificationCategory(identifier: "myNotificationActionCategory", actions: [], intentIdentifiers: [], options: [])
-        
-        UNUserNotificationCenter.current().setNotificationCategories([category])
-        
-    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "fistBump" {
+            let alert = UIAlertController(title: "Cool", message: "👊👊👊👊", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Close", style: .default, handler: nil)
+            alert.addAction(action)
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        print("Response received for \(response.actionIdentifier)")
+        completionHandler()
     }
 }
 
