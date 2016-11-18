@@ -23,6 +23,7 @@ class ViewController: UIViewController {
             }
         })
     }
+    
     @IBAction func nofityButtonTapped(_ sender: UIButton) {
         scheduleNotification(inSeconds: 5, completion: { success in
             if success {
@@ -51,6 +52,19 @@ class ViewController: UIViewController {
                 print("error scheduled notification")
             }
         })
+    }
+    
+    @IBAction func nofiyExtensionButton(_ sender: UIButton) {
+        scheduleExtensionNotification(inSeconds: 5, completion: { success in
+            if success {
+                print("successfully scheduled notification")
+            } else {
+                print("error scheduled notification")
+            }
+        })
+    }
+    
+    @IBAction func notifyWithActions(_ sender: UIButton) {
     }
     
     func scheduleNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
@@ -120,6 +134,41 @@ class ViewController: UIViewController {
         attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
         
         let notif = UNMutableNotificationContent()
+        
+        notif.title = "New Notification"
+        notif.subtitle = "These are great!"
+        notif.body = "The new iOS 10 notification are great"
+        
+        notif.attachments = [attachment]
+        
+        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        })
+    }
+
+    func scheduleExtensionNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
+        
+        // Add attachment
+        let myImage = "giphy"
+        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "gif") else {
+            completion(false)
+            return
+        }
+        var attachment: UNNotificationAttachment
+        
+        attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
+        
+        let notif = UNMutableNotificationContent()
+        
+        notif.categoryIdentifier = "myNotificationCategory"
         
         notif.title = "New Notification"
         notif.subtitle = "These are great!"
