@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,13 +25,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func nofityButtonTapped(_ sender: UIButton) {
-        scheduleNotification(inSeconds: 5, completion: { success in
-            if success {
-                print("successfully scheduled notification")
-            } else {
-                print("error scheduled notification")
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+                self.scheduleNotification(inSeconds: 5, completion: { success in
+                    if success {
+                        print("successfully scheduled notification")
+                    } else {
+                        print("error scheduled notification")
+                    }
+                })
             }
-        })
+        }
     }
     
     @IBAction func notifyAttachmentButtonTapped(_ sender: UIButton) {

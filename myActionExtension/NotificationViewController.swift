@@ -27,6 +27,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         if response.actionIdentifier == "fistBump" {
             completion(.dismissAndForwardAction)
+        } else if response.actionIdentifier == "addBump" {
+            label?.text = (label?.text!)! + "👊"
+            completion(.doNotDismiss)
         } else if response.actionIdentifier == "dismiss" {
             completion(.dismiss)
         }
