@@ -102,125 +102,21 @@ class ViewController: UIViewController {
     func scheduleAttachmentNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
         
         // Add attachment
-        let myImage = "andreas_lund"
-        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "jpg") else {
-            completion(false)
-            return
-        }
-        var attachment: UNNotificationAttachment
-        
-        attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
-        
-        let notif = UNMutableNotificationContent()
-        
-        notif.title = "New Notification"
-        notif.subtitle = "These are great!"
-        notif.body = "The new iOS 10 notification are great"
-        
-        notif.attachments = [attachment]
-        
-        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                completion(false)
-            } else {
-                completion(true)
-            }
-        })
     }
     
     func scheduleGifNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
         
-        // Add attachment
-        let myImage = "giphy"
-        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "gif") else {
-            completion(false)
-            return
-        }
-        var attachment: UNNotificationAttachment
-        
-        attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
-        
-        let notif = UNMutableNotificationContent()
-        
-        notif.title = "New Notification"
-        notif.subtitle = "These are great!"
-        notif.body = "The new iOS 10 notification are great"
-        
-        notif.attachments = [attachment]
-        
-        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                completion(false)
-            } else {
-                completion(true)
-            }
-        })
+        // Add attachment as gif
     }
 
     func scheduleExtensionNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
         
-        // Add attachment
-        let myImage = "giphy"
-        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "gif") else {
-            completion(false)
-            return
-        }
-        var attachment: UNNotificationAttachment
-        
-        attachment = try! UNNotificationAttachment(identifier: "myNotification", url: imageUrl, options: .none)
-        
-        let notif = UNMutableNotificationContent()
-        
-        notif.categoryIdentifier = "myNotificationCategory"
-        
-        notif.title = "New Notification"
-        notif.subtitle = "These are great!"
-        notif.body = "The new iOS 10 notification are great"
-        
-        notif.attachments = [attachment]
-        
-        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                completion(false)
-            } else {
-                completion(true)
-            }
-        })
+        // Add attachment and use extension
     }
 
     func scheduleActionNotification(inSeconds: TimeInterval, completion: @escaping (Bool) -> ()) {
-        
-        let notif = UNMutableNotificationContent()
-        
-        notif.categoryIdentifier = "myNotificationActionCategory"
-        
-        notif.title = "New Notification"
-        notif.subtitle = "These are great!"
-        notif.body = "The new iOS 10 notification are great"
-        
-        let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: "myNotification", content: notif, trigger: notifTrigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-                completion(false)
-            } else {
-                completion(true)
-            }
-        })
+
+        // use extension with action
     }
 
     
