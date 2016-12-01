@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Add this to get notification when app is in use
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Extension call category setup configureUserNotification()
+        
         return true
     }
 
@@ -41,6 +48,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // Extension setup category
+    private func configureUserNotification() {
+        // Use category with custom view
+        //let category = UNNotificationCategory(identifier: "myNotificationCategory", actions: [], intentIdentifiers: [], options: [])
+        
+        // Use category with custom view and with actions
+        // create actions
+        //let favAction = UNNotificationAction(identifier: "fistBump", title: "👊 fistbump", options: [.foreground])
+        //let addAction = UNNotificationAction(identifier: "addBump", title: "add 👊", options: [])
+        //let dismissAction = UNNotificationAction(identifier: "dismiss", title: "Dismiss", options: [])
+        
+        // add actions to category
+        //let categoryAction = UNNotificationCategory(identifier: "myNotificationActionCategory", actions: [favAction, addAction, dismissAction], intentIdentifiers: [], options: [])
+        
+        // Add categories to notification center
+        //UNUserNotificationCenter.current().setNotificationCategories([category, categoryAction])
+        
+    }
 
 }
+
+// Extension tell app to be able to get notification when in use and also for extensions
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.alert)
+    }
+    
+    // handle response from actions
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        
+//        if response.actionIdentifier == "fistBump" {
+//            let alert = UIAlertController(title: "Cool", message: "👊👊👊👊", preferredStyle: .alert)
+//            let action = UIAlertAction(title: "Close", style: .default, handler: nil)
+//            alert.addAction(action)
+//            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }
+//        print("Response received for \(response.actionIdentifier)")
+//        completionHandler()
+//    }
+}
+
+
+
+
 
